@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  {% include head.html %}
+
+  <body class="theme-base-0f">
+
+    {% include sidebar.html %}
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          
+          
+        <h3 class="masthead-title">
+          <a href="/" title="Home">{{ site.title }}</a>
+
+          {% for page_name in site.pages_list %}
+              &nbsp;&nbsp;&nbsp;<small><a href="/{{ page_name | downcase }}">{{ page_name }}</a></small>
+          {% endfor %}
+
+        </h3>
+          
+          
+          
+          
+          
+        </div>
+      </div>
+
+      <div class="container content">
+        {{ content }}
+        
+ {% include comments.html %}        
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+       
+    <!-- Todo: put Java Script in js file, minify and laod from file -->
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+        
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if(!checkbox.checked ||
+             sidebar.contains(target) ||
+             (target === checkbox || target === toggle)) {
+
+             //if(target != null && target.nodeName != null && target.nodeName.toLowerCase() === "button") {
+	             //if(target.innerHTML.charAt(0) === "+" || target.innerHTML.charAt(0) === "-") {
+	         if(target != null && target.nodeName != null && target.nodeName.toLowerCase() === "input") {
+	         if(target.value.charAt(0) === "+" || target.value.charAt(0) === "-") {
+              var collapse = target.parentNode;
+              do {
+        		collapse = collapse.nextSibling;
+        	  } while (collapse && collapse.nodeName && collapse.nodeName.toLowerCase() !== "div");	
+        	                
+              if(collapse.style.display === "none") {
+                collapse.style.display = "block";
+                //target.innerHTML = "-";
+                target.value = "-";
+              } else {
+                collapse.style.display = "none";
+                //target.innerHTML = "+";
+                target.value = "+";
+              }
+      	 	}}
+             
+	                          
+/*	            
+http://stackoverflow.com/questions/868407/hide-an-elements-next-sibling-with-javascript
+http://stackoverflow.com/questions/3510867/finding-the-type-of-an-input-element
+ 
+             if(target.className === "acollapse") {
+              var collapse = target.parentNode.nextSibling.nextSibling;
+              if(collapse.style.display === "none") {
+                collapse.style.display = "block";
+                target.innerHTML = "(hide)";
+              } else {
+                collapse.style.display = "none";
+                target.innerHTML = "(show)";
+              }
+             }
+*/             
+
+             return;
+             }
+
+          checkbox.checked = false;
+        }, false);
+        
+        // open links in a new window
+        var links = document.links;
+
+        for (var i = 0, linksLength = links.length; i < linksLength; i++) {
+           if (links[i].hostname != window.location.hostname) {
+               links[i].target = '_blank';
+           } 
+        }
+        
+        // mark negative values in a <td> of table
+        var tds = document.getElementsByTagName('td');
+        for (var i = 0, tdsLength = tds.length; i < tdsLength; i++) {
+			if (tds[i].firstChild.nodeValue.trim().indexOf('-') == 0) tds[i].className = "negative";
+        }
+          
+        // logic for collapse / expand
+        //var divs = document.querySelectorAll('.collapse-group');
+        //for (var i = 0; i < divs.length; ++i) {
+          //divs[i].style.color = "green";
+          //divs[i].style.display = "none";
+        //}        
+      })(document);
+    </script> 
+
+    <img src="https://ga-beacon.appspot.com/UA-56760514-1/systematicinvestor/{{ page.title }}?pixel">
+
+  </body>
+</html>
