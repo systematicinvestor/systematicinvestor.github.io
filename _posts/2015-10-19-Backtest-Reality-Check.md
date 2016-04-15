@@ -532,5 +532,6 @@ a good simulation of real portfolio performance.
 Please note that the supporting code for this post is still in development. If you want to experiment at your own
 risk, please sign up for a beta testing by filling up the contact form.
 
-For your convenience, the [2015-10-19-Backtest-Reality-Check.R](/rposts/2015-10-19-Backtest-Reality-Check.R) post source code.
+For your convenience, the [2015-10-19-Backtest-Reality-Check.R](https://github.com/systematicinvestor/systematicinvestor.github.io/blob/master/rposts/2015-10-19-Backtest-Reality-Check.R) post source code.
+
 *(this report was produced on: 2016-04-15)*
