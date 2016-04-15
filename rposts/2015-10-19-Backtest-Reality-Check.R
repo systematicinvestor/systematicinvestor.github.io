@@ -76,7 +76,8 @@ print(plotbt.strategy.sidebyside(models, make.plot=F, return.table=T,perfromance
 #' at the end of the month and update allocations at the end of the next month. The proper solution is to
 #' compute share allocation at the end of the month and update shares at the end of the next month (s.ew)
 #' 
-```{r, echo=T}
+
+#+ echo=T
 #*****************************************************************
 # s.ew
 #******************************************************************
@@ -91,7 +92,7 @@ plotbt(models, plotX = T, log = 'y', LeftMargin = 3, main = NULL)
 	mtext('Cumulative Performance', side = 2, line = 1)
 
 print(plotbt.strategy.sidebyside(models, make.plot=F, return.table=T,perfromance.fn = engineering.returns.kpi))
-```
+
 #' 
 #' One of the missing features of above approach is commissions. In reality, every time we make a transaction,
 #' brokerage charge commissions. Let's add following commission structure: $10 fixed per transaction, plus

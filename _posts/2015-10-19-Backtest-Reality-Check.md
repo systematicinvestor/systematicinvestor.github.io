@@ -121,7 +121,6 @@ compute share allocation at the end of the month and update shares at the end of
 
 
 
-
 {% highlight r %}
 #*****************************************************************
 # s.ew
@@ -137,7 +136,7 @@ plotbt(models, plotX = T, log = 'y', LeftMargin = 3, main = NULL)
 	mtext('Cumulative Performance', side = 2, line = 1)
 {% endhighlight %}
 
-![plot of chunk plot-4](/public/images/2015-10-19-Backtest-Reality-Check/plot-4-1.png) 
+![plot of chunk plot-3](/public/images/2015-10-19-Backtest-Reality-Check/plot-3-1.png) 
 
 {% highlight r %}
 print(plotbt.strategy.sidebyside(models, make.plot=F, return.table=T,perfromance.fn = engineering.returns.kpi))
@@ -160,7 +159,6 @@ print(plotbt.strategy.sidebyside(models, make.plot=F, return.table=T,perfromance
 |Profit.Factor |NaN               |1.4               |
 |Num.Trades    |5                 |2779              |
     
-```
 
 
 One of the missing features of above approach is commissions. In reality, every time we make a transaction,
@@ -184,7 +182,7 @@ plotbt(models, plotX = T, log = 'y', LeftMargin = 3, main = NULL)
 	mtext('Cumulative Performance', side = 2, line = 1)
 {% endhighlight %}
 
-![plot of chunk plot-5](/public/images/2015-10-19-Backtest-Reality-Check/plot-5-1.png) 
+![plot of chunk plot-4](/public/images/2015-10-19-Backtest-Reality-Check/plot-4-1.png) 
 
 {% highlight r %}
 print(plotbt.strategy.sidebyside(models, make.plot=F, return.table=T,perfromance.fn = engineering.returns.kpi))
@@ -231,7 +229,7 @@ plotbt(models, plotX = T, log = 'y', LeftMargin = 3, main = NULL)
 	mtext('Cumulative Performance', side = 2, line = 1)
 {% endhighlight %}
 
-![plot of chunk plot-6](/public/images/2015-10-19-Backtest-Reality-Check/plot-6-1.png) 
+![plot of chunk plot-5](/public/images/2015-10-19-Backtest-Reality-Check/plot-5-1.png) 
 
 {% highlight r %}
 print(plotbt.strategy.sidebyside(models, make.plot=F, return.table=T,perfromance.fn = engineering.returns.kpi))
@@ -281,7 +279,7 @@ plotbt(models, plotX = T, log = 'y', LeftMargin = 3, main = NULL)
 	mtext('Cumulative Performance', side = 2, line = 1)
 {% endhighlight %}
 
-![plot of chunk plot-7](/public/images/2015-10-19-Backtest-Reality-Check/plot-7-1.png) 
+![plot of chunk plot-6](/public/images/2015-10-19-Backtest-Reality-Check/plot-6-1.png) 
 
 {% highlight r %}
 print(plotbt.strategy.sidebyside(models, make.plot=F, return.table=T,perfromance.fn = engineering.returns.kpi))
@@ -343,7 +341,7 @@ plotbt(models, plotX = T, log = 'y', LeftMargin = 3, main = NULL)
 	mtext('Cumulative Performance', side = 2, line = 1)
 {% endhighlight %}
 
-![plot of chunk plot-8](/public/images/2015-10-19-Backtest-Reality-Check/plot-8-1.png) 
+![plot of chunk plot-7](/public/images/2015-10-19-Backtest-Reality-Check/plot-7-1.png) 
 
 {% highlight r %}
 print(plotbt.strategy.sidebyside(models, make.plot=F, return.table=T,perfromance.fn = engineering.returns.kpi))
@@ -406,7 +404,7 @@ plotbt(models, plotX = T, log = 'y', LeftMargin = 3, main = NULL)
 	mtext('Cumulative Performance', side = 2, line = 1)
 {% endhighlight %}
 
-![plot of chunk plot-9](/public/images/2015-10-19-Backtest-Reality-Check/plot-9-1.png) 
+![plot of chunk plot-8](/public/images/2015-10-19-Backtest-Reality-Check/plot-8-1.png) 
 
 {% highlight r %}
 print(plotbt.strategy.sidebyside(models, make.plot=F, return.table=T,perfromance.fn = engineering.returns.kpi))
@@ -450,7 +448,7 @@ layout(1)
 barplot.with.labels(sapply(models, compute.turnover, data), 'Average Annual Portfolio Turnover')
 {% endhighlight %}
 
-![plot of chunk plot-9](/public/images/2015-10-19-Backtest-Reality-Check/plot-9-2.png) 
+![plot of chunk plot-8](/public/images/2015-10-19-Backtest-Reality-Check/plot-8-2.png) 
 
 {% highlight r %}
 m = models$s.ew.com.lot.turnover.unadjusted.tax
@@ -532,6 +530,6 @@ a good simulation of real portfolio performance.
 Please note that the supporting code for this post is still in development. If you want to experiment at your own
 risk, please sign up for a beta testing by filling up the contact form.
 
-For your convenience, the [2015-10-19-Backtest-Reality-Check.R](https://github.com/systematicinvestor/systematicinvestor.github.io/blob/master/rposts/2015-10-19-Backtest-Reality-Check.R) post source code.
+For your convenience, the [2015-10-19-Backtest-Reality-Check](https://github.com/systematicinvestor/systematicinvestor.github.io/blob/master/rposts/2015-10-19-Backtest-Reality-Check.R) post source code.
 
 *(this report was produced on: 2016-04-15)*
