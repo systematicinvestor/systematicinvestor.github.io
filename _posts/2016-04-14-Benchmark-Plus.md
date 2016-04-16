@@ -174,4 +174,4 @@ it works quite well.
 
 For your convenience, the [2016-04-14-Benchmark-Plus](https://github.com/systematicinvestor/systematicinvestor.github.io/blob/master/rposts/2016-04-14-Benchmark-Plus.r) post source code.
 
-*(this report was produced on: 2016-04-15)*
+
