@@ -74,7 +74,7 @@ print(last(data$prices))
 
 |           | US.STOCKS| FOREIGN.STOCKS| US.10YR.GOV.BOND| REAL.ESTATE| COMMODITIES|  CASH|
 |:----------|---------:|--------------:|----------------:|-----------:|-----------:|-----:|
-|2016-04-18 |    106.77|          44.29|           110.45|       83.78|       13.62| 83.04|
+|2016-04-19 |    107.07|          45.07|           110.27|       83.82|       13.91| 83.09|
     
 
 
@@ -140,7 +140,7 @@ obj$weights$strategy = weight[period.ends,]
 |Volatility    |7.8               |
 |MaxDD         |-13.24            |
 |Exposure      |99.72             |
-|Win.Percent   |63.97             |
+|Win.Percent   |64.08             |
 |Avg.Trade     |0.2               |
 |Profit.Factor |2.07              |
 |Num.Trades    |952               |
@@ -209,9 +209,9 @@ obj$weights$strategy = weight[period.ends,]
 |CASH             | 80    |2016-01-29 |2016-02-29 |31    | 81.56      | 82.25     | 0.68  |
 |US.10YR.GOV.BOND | 20    |2016-02-29 |2016-03-31 |31    |110.24      |110.17     |-0.01  |
 |CASH             | 80    |2016-02-29 |2016-03-31 |31    | 82.25      | 82.81     | 0.54  |
-|US.10YR.GOV.BOND | 20    |2016-03-31 |2016-04-18 |18    |110.17      |110.45     | 0.05  |
-|REAL.ESTATE      | 20    |2016-03-31 |2016-04-18 |18    | 83.80      | 83.78     | 0.00  |
-|CASH             | 60    |2016-03-31 |2016-04-18 |18    | 82.81      | 83.04     | 0.17  |
+|US.10YR.GOV.BOND | 20    |2016-03-31 |2016-04-19 |19    |110.17      |110.27     | 0.02  |
+|REAL.ESTATE      | 20    |2016-03-31 |2016-04-19 |19    | 83.80      | 83.82     | 0.00  |
+|CASH             | 60    |2016-03-31 |2016-04-19 |19    | 82.81      | 83.09     | 0.20  |
     
 
 
@@ -277,4 +277,4 @@ report can also be downloaded and viewed the pdf format.
 
 
 
-*(this report was produced on: 2016-04-19)*
+*(this report was produced on: 2016-04-20)*
