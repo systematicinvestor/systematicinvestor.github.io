@@ -14,6 +14,9 @@
 #' Load historical country returns from AQR data library
 #'
 
+#+ chunk1,echo=F, ref.label="chunk2"
+
+
 #+ echo=T
 #*****************************************************************
 # Read historical data from AQR library
@@ -67,20 +70,8 @@ signal = ret < 0
 signals = list(down1yr = signal, down2yr = signal & mlag(signal), down3yr=signal & mlag(signal) & mlag(signal,2))
 
 # compute stats
-stats = list()
-for(signal in names(signals)) {
-	temp = signals[[signal]]
-	stats[[paste(signal,'hold1yr')]] = coredata(ret)[ifna(mlag(temp),F)]
-	stats[[paste(signal,'hold2yr')]] = 1/2 * coredata(ret + mlag(ret,-1))[ifna(mlag(temp),F)]
-	stats[[paste(signal,'hold3yr')]] = 1/3 * coredata(ret + mlag(ret,-1) + + mlag(ret,-3))[ifna(mlag(temp),F)]
-}
-stats = lapply(stats,na.omit)
-# sapply(stats,mean) # mean
+make.stats(signals, ret)
 
-# make a barplot
-par(mar = c(8, 4, 2, 1))
-boxplot(stats,las=2)
-	abline(h=0,col='gray')
 
 #' 
 #' The least frequent the event, the better its historical performance.
@@ -96,32 +87,9 @@ boxplot(stats,las=2)
 #*****************************************************************
 # Strategy
 #*****************************************************************
-models = list()
+models = run.models(signals, data)
 
-data$weight[] = NA
-	data$weight[] = ntop(prices, n)
-models$equal.weight = bt.run(data, silent=T)
-
-for(signal in names(signals)) {
-	temp = signals[[signal]]
-	data$weight[] = NA
-		data$weight[] = ntop(temp, n)
-	models[[paste(signal,'hold1yr')]] = bt.run(data, silent=T)
-	
-	temp = signals[[signal]]
-		temp = temp | mlag(temp)
-	data$weight[] = NA
-		data$weight[] = ntop(temp, n)
-	models[[paste(signal,'hold2yr')]] = bt.run(data, silent=T)
-	
-	temp = signals[[signal]]
-		temp = temp | mlag(temp) | mlag(temp,2)
-	data$weight[] = NA
-		data$weight[] = ntop(temp, n)
-	models[[paste(signal,'hold3yr')]] = bt.run(data, silent=T)
-}
-
-strategy.performance.snapshoot(models, T, sort.performance=F)
+strategy.performance.snapshoot(models, T)
 
 #' 
 #' Please note that exposure, the time strategy is invested, is small, around 30%, for 
@@ -157,7 +125,7 @@ bt.prep(temp, align='keep.all', fill.gaps = F, dates='1975::')
 
 data = bt.change.periodicity(temp,'years') 
 
-plota.matplot( scale.one(data$prices), main='Asset Performance')
+plota.matplot( scale.one(bt.apply.matrix(data$prices,ifna.prev)), main='Asset Performance')
 
 #+ echo=F, eval=T
 #*****************************************************************
@@ -172,50 +140,13 @@ signal = ret < 0
 signals = list(down1yr = signal, down2yr = signal & mlag(signal), down3yr=signal & mlag(signal) & mlag(signal,2))
 
 # compute stats
-stats = list()
-for(signal in names(signals)) {
-	temp = signals[[signal]]
-	stats[[paste(signal,'hold1yr')]] = coredata(ret)[ifna(mlag(temp),F)]
-	stats[[paste(signal,'hold2yr')]] = 1/2 * coredata(ret + mlag(ret,-1))[ifna(mlag(temp),F)]
-	stats[[paste(signal,'hold3yr')]] = 1/3 * coredata(ret + mlag(ret,-1) + + mlag(ret,-3))[ifna(mlag(temp),F)]
-}
-stats = lapply(stats,na.omit)
-# sapply(stats,mean) # mean
-
-# make a barplot
-par(mar = c(8, 4, 2, 1))
-boxplot(stats,las=2)
-	abline(h=0,col='gray')
-
+make.stats(signals, ret)
 
 #+ echo=F, eval=T
 #*****************************************************************
 # Strategy
 #*****************************************************************
-models = list()
-
-data$weight[] = NA
-	data$weight[] = ntop(prices, n)
-models$equal.weight = bt.run(data, silent=T)
-
-for(signal in names(signals)) {
-	temp = signals[[signal]]
-	data$weight[] = NA
-		data$weight[] = ntop(temp, n)
-	models[[paste(signal,'hold1yr')]] = bt.run(data, silent=T)
-	
-	temp = signals[[signal]]
-		temp = temp | mlag(temp)
-	data$weight[] = NA
-		data$weight[] = ntop(temp, n)
-	models[[paste(signal,'hold2yr')]] = bt.run(data, silent=T)
-	
-	temp = signals[[signal]]
-		temp = temp | mlag(temp) | mlag(temp,2)
-	data$weight[] = NA
-		data$weight[] = ntop(temp, n)
-	models[[paste(signal,'hold3yr')]] = bt.run(data, silent=T)
-}
+models = run.models(signals, data)
 
 strategy.performance.snapshoot(models, T, sort.performance=F)
 
@@ -233,6 +164,69 @@ strategy.performance.snapshoot(models, T, sort.performance=F)
 #' Alternatively the trigger value can be derived from recent market data
 #' and adaptively adjusted as market enter new regimes.
 #'  
+
+
+#'  
+#'  Supporting functions:
+#'  ---
+#'  
+
+#+ chunk2, echo=T, eval=T
+#*****************************************************************
+# Stats
+#*****************************************************************
+make.stats = function(signals, ret) {
+	# compute stats
+	stats = list()
+	for(signal in names(signals)) {
+		temp = signals[[signal]]
+		stats[[paste(signal,'hold1yr')]] = coredata(ret)[ifna(mlag(temp),F)]
+		stats[[paste(signal,'hold2yr')]] = 1/2 * coredata(ret + mlag(ret,-1))[ifna(mlag(temp),F)]
+		stats[[paste(signal,'hold3yr')]] = 1/3 * coredata(ret + mlag(ret,-1) + + mlag(ret,-3))[ifna(mlag(temp),F)]
+	}
+	stats = lapply(stats,na.omit)
+	# sapply(stats,mean) # mean
+
+	# make a barplot
+	par(mar = c(8, 4, 2, 1))
+	boxplot(stats,las=2)
+		abline(h=0,col='gray')
+}
+
+#*****************************************************************
+# Strategy
+#*****************************************************************
+run.models = function(signals, data) {
+	models = list()
+
+	data$weight[] = NA
+		data$weight[] = ntop(prices, n)
+	models$equal.weight = bt.run(data, silent=T)
+
+	for(signal in names(signals)) {
+		temp = signals[[signal]]
+		data$weight[] = NA
+			data$weight[] = ntop(temp, n)
+		models[[paste(signal,'hold1yr')]] = bt.run(data, silent=T)
+		
+		temp = signals[[signal]]
+			temp = temp | mlag(temp)
+		data$weight[] = NA
+			data$weight[] = ntop(temp, n)
+		models[[paste(signal,'hold2yr')]] = bt.run(data, silent=T)
+		
+		temp = signals[[signal]]
+			temp = temp | mlag(temp) | mlag(temp,2)
+		data$weight[] = NA
+			data$weight[] = ntop(temp, n)
+		models[[paste(signal,'hold3yr')]] = bt.run(data, silent=T)
+	}
+
+	models
+}	
+
+
+
 
 
 

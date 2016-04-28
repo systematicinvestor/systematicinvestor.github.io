@@ -19,6 +19,7 @@ Load historical country returns from AQR data library
 
 
 
+
 {% highlight r %}
 #*****************************************************************
 # Read historical data from AQR library
@@ -76,20 +77,7 @@ signal = ret < 0
 signals = list(down1yr = signal, down2yr = signal & mlag(signal), down3yr=signal & mlag(signal) & mlag(signal,2))
 
 # compute stats
-stats = list()
-for(signal in names(signals)) {
-	temp = signals[[signal]]
-	stats[[paste(signal,'hold1yr')]] = coredata(ret)[ifna(mlag(temp),F)]
-	stats[[paste(signal,'hold2yr')]] = 1/2 * coredata(ret + mlag(ret,-1))[ifna(mlag(temp),F)]
-	stats[[paste(signal,'hold3yr')]] = 1/3 * coredata(ret + mlag(ret,-1) + + mlag(ret,-3))[ifna(mlag(temp),F)]
-}
-stats = lapply(stats,na.omit)
-# sapply(stats,mean) # mean
-
-# make a barplot
-par(mar = c(8, 4, 2, 1))
-boxplot(stats,las=2)
-	abline(h=0,col='gray')
+make.stats(signals, ret)
 {% endhighlight %}
 
 ![plot of chunk plot-3](/public/images/2016-03-27-Country-Seasonality/plot-3-1.png) 
@@ -109,32 +97,9 @@ and holds for the next 1/2/3 years
 #*****************************************************************
 # Strategy
 #*****************************************************************
-models = list()
+models = run.models(signals, data)
 
-data$weight[] = NA
-	data$weight[] = ntop(prices, n)
-models$equal.weight = bt.run(data, silent=T)
-
-for(signal in names(signals)) {
-	temp = signals[[signal]]
-	data$weight[] = NA
-		data$weight[] = ntop(temp, n)
-	models[[paste(signal,'hold1yr')]] = bt.run(data, silent=T)
-	
-	temp = signals[[signal]]
-		temp = temp | mlag(temp)
-	data$weight[] = NA
-		data$weight[] = ntop(temp, n)
-	models[[paste(signal,'hold2yr')]] = bt.run(data, silent=T)
-	
-	temp = signals[[signal]]
-		temp = temp | mlag(temp) | mlag(temp,2)
-	data$weight[] = NA
-		data$weight[] = ntop(temp, n)
-	models[[paste(signal,'hold3yr')]] = bt.run(data, silent=T)
-}
-
-strategy.performance.snapshoot(models, T, sort.performance=F)
+strategy.performance.snapshoot(models, T)
 {% endhighlight %}
 
 ![plot of chunk plot-4](/public/images/2016-03-27-Country-Seasonality/plot-4-1.png) NULL
@@ -168,7 +133,66 @@ For example, we may run the same tests using 1% as the trigger.
 Alternatively the trigger value can be derived from recent market data
 and adaptively adjusted as market enter new regimes.
  
+ 
+ Supporting functions:
+ ---
+ 
 
+
+{% highlight r %}
+#*****************************************************************
+# Stats
+#*****************************************************************
+make.stats = function(signals, ret) {
+	# compute stats
+	stats = list()
+	for(signal in names(signals)) {
+		temp = signals[[signal]]
+		stats[[paste(signal,'hold1yr')]] = coredata(ret)[ifna(mlag(temp),F)]
+		stats[[paste(signal,'hold2yr')]] = 1/2 * coredata(ret + mlag(ret,-1))[ifna(mlag(temp),F)]
+		stats[[paste(signal,'hold3yr')]] = 1/3 * coredata(ret + mlag(ret,-1) + + mlag(ret,-3))[ifna(mlag(temp),F)]
+	}
+	stats = lapply(stats,na.omit)
+	# sapply(stats,mean) # mean
+
+	# make a barplot
+	par(mar = c(8, 4, 2, 1))
+	boxplot(stats,las=2)
+		abline(h=0,col='gray')
+}
+
+#*****************************************************************
+# Strategy
+#*****************************************************************
+run.models = function(signals, data) {
+	models = list()
+
+	data$weight[] = NA
+		data$weight[] = ntop(prices, n)
+	models$equal.weight = bt.run(data, silent=T)
+
+	for(signal in names(signals)) {
+		temp = signals[[signal]]
+		data$weight[] = NA
+			data$weight[] = ntop(temp, n)
+		models[[paste(signal,'hold1yr')]] = bt.run(data, silent=T)
+		
+		temp = signals[[signal]]
+			temp = temp | mlag(temp)
+		data$weight[] = NA
+			data$weight[] = ntop(temp, n)
+		models[[paste(signal,'hold2yr')]] = bt.run(data, silent=T)
+		
+		temp = signals[[signal]]
+			temp = temp | mlag(temp) | mlag(temp,2)
+		data$weight[] = NA
+			data$weight[] = ntop(temp, n)
+		models[[paste(signal,'hold3yr')]] = bt.run(data, silent=T)
+	}
+
+	models
+}	
+{% endhighlight %}
 
 
 
