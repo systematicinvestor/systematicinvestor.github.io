@@ -20,6 +20,11 @@ into corresponding end period functions. For example, weeks, week, weekly, and w
 It also handles `bi-weekly` syntax by taking every other period end. For more precise handling you can directly 
 specify by and skip input parameters. 
 
+**Please note the `date.ends` function works differently depending on the input data type. 
+I.e. if xts object is given, assume that xts is sourced from historical data and does not contain holidays
+otherwise first filter out non business days and next apply dates periodicity function.**
+
+
 Let's checkout some examples:
 
 

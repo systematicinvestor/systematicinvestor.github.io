@@ -159,7 +159,7 @@ for(n in common) {
 }	
 {% endhighlight %}
 
-![plot of chunk plot-4](/public/images/2016-04-11-Historical-Country-Returns/plot-4-1.png) ![plot of chunk plot-4](/public/images/2016-04-11-Historical-Country-Returns/plot-4-2.png) ![plot of chunk plot-4](/public/images/2016-04-11-Historical-Country-Returns/plot-4-3.png) ![plot of chunk plot-4](/public/images/2016-04-11-Historical-Country-Returns/plot-4-4.png) ![plot of chunk plot-4](/public/images/2016-04-11-Historical-Country-Returns/plot-4-5.png) ![plot of chunk plot-4](/public/images/2016-04-11-Historical-Country-Returns/plot-4-6.png) 
+![plot of chunk plot-4](/public/images/2016-03-26-Historical-Country-Returns/plot-4-1.png) ![plot of chunk plot-4](/public/images/2016-03-26-Historical-Country-Returns/plot-4-2.png) ![plot of chunk plot-4](/public/images/2016-03-26-Historical-Country-Returns/plot-4-3.png) ![plot of chunk plot-4](/public/images/2016-03-26-Historical-Country-Returns/plot-4-4.png) ![plot of chunk plot-4](/public/images/2016-03-26-Historical-Country-Returns/plot-4-5.png) ![plot of chunk plot-4](/public/images/2016-03-26-Historical-Country-Returns/plot-4-6.png) 
 
 
 I guess the point is:
@@ -172,5 +172,5 @@ In the end, if you making an allocation decisions based on historical returns,
 it is best to test robustness of you strategy on different indexes.
 
 Next let's see how country ETFs, correspond to these historical country returns.
-For your convenience, the [2016-04-11-Historical-Country-Returns](https://github.com/systematicinvestor/systematicinvestor.github.io/blob/master/rposts/2016-04-11-Historical-Country-Returns.r) post source code.
+For your convenience, the [2016-03-26-Historical-Country-Returns](https://github.com/systematicinvestor/systematicinvestor.github.io/blob/master/rposts/2016-03-26-Historical-Country-Returns.r) post source code.
 
