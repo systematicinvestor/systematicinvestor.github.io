@@ -89,7 +89,6 @@ make.stats(signals, ret)
 #*****************************************************************
 models = run.models(signals, data)
 
-strategy.performance.snapshoot(models, T)
 
 #' 
 #' Please note that exposure, the time strategy is invested, is small, around 30%, for 
@@ -148,7 +147,6 @@ make.stats(signals, ret)
 #*****************************************************************
 models = run.models(signals, data)
 
-strategy.performance.snapshoot(models, T, sort.performance=F)
 
 #' 
 #' The results are similar to the results obtained using country historical returns sourced from
@@ -201,27 +199,33 @@ run.models = function(signals, data) {
 
 	data$weight[] = NA
 		data$weight[] = ntop(prices, n)
-	models$equal.weight = bt.run(data, silent=T)
+	models$equal.weight = bt.run(data, trade.summary=T, silent=T)
 
 	for(signal in names(signals)) {
 		temp = signals[[signal]]
 		data$weight[] = NA
 			data$weight[] = ntop(temp, n)
-		models[[paste(signal,'hold1yr')]] = bt.run(data, silent=T)
+		models[[paste(signal,'hold1yr')]] = bt.run(data, trade.summary=T, silent=T)
 		
 		temp = signals[[signal]]
 			temp = temp | mlag(temp)
 		data$weight[] = NA
 			data$weight[] = ntop(temp, n)
-		models[[paste(signal,'hold2yr')]] = bt.run(data, silent=T)
+		models[[paste(signal,'hold2yr')]] = bt.run(data, trade.summary=T, silent=T)
 		
 		temp = signals[[signal]]
 			temp = temp | mlag(temp) | mlag(temp,2)
 		data$weight[] = NA
 			data$weight[] = ntop(temp, n)
-		models[[paste(signal,'hold3yr')]] = bt.run(data, silent=T)
+		models[[paste(signal,'hold3yr')]] = bt.run(data, trade.summary=T, silent=T)
 	}
 
+	# create report
+	plotbt(models, plotX = T, log = 'y', LeftMargin = 3, main = NULL)	    	
+		mtext('Cumulative Performance', side = 2, line = 1)
+	
+	print(plotbt.strategy.sidebyside(models, make.plot=F, return.table=T,perfromance.fn = engineering.returns.kpi))
+	
 	models
 }	
 
