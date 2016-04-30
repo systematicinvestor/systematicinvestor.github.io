@@ -164,8 +164,7 @@ Alternatively the trigger value can be derived from recent market data
 and adaptively adjusted as market enter new regimes.
  
  
- Supporting functions:
- ---
+#Supporting functions:
  
 
 

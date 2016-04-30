@@ -165,8 +165,8 @@ models = run.models(signals, data)
 
 
 #'  
-#'  Supporting functions:
-#'  ---
+#'  #Supporting functions:
+#'  
 #'  
 
 #+ chunk2, echo=T, eval=T
