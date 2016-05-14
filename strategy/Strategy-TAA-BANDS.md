@@ -74,7 +74,7 @@ print(last(data$prices))
 
 |           | US.STOCKS| FOREIGN.STOCKS| US.10YR.GOV.BOND| REAL.ESTATE| COMMODITIES|  CASH|
 |:----------|---------:|--------------:|----------------:|-----------:|-----------:|-----:|
-|2016-05-12 |    105.33|          43.19|           110.47|       85.16|        14.5| 83.12|
+|2016-05-13 |    104.42|          42.62|           110.89|        84.4|       14.48| 83.21|
     
 
 
@@ -95,7 +95,7 @@ prices = data$prices * data$universe
 
 
 {% highlight text %}
-## Error in eval(expr, envir, enclos): Date's serial number (1463036769) outside allowed range [367-109574], i.e. [January 1st, 1901-December 31st, 2199]
+## Error in eval(expr, envir, enclos): Date's serial number (1463123169) outside allowed range [367-109574], i.e. [January 1st, 1901-December 31st, 2199]
 {% endhighlight %}
 
 
@@ -145,7 +145,7 @@ obj$weights$strategy = weight[period.ends,]
 
 
 {% highlight text %}
-## Error in eval(expr, envir, enclos): Date's serial number (1463036769) outside allowed range [367-109574], i.e. [January 1st, 1901-December 31st, 2199]
+## Error in eval(expr, envir, enclos): Date's serial number (1463123169) outside allowed range [367-109574], i.e. [January 1st, 1901-December 31st, 2199]
 {% endhighlight %}
 
 
@@ -187,4 +187,4 @@ report can also be downloaded and viewed the pdf format.
 
 
 
-*(this report was produced on: 2016-05-13)*
+*(this report was produced on: 2016-05-14)*

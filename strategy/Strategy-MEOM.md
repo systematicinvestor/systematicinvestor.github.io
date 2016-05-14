@@ -86,9 +86,9 @@ print(last(data$prices))
 
 
 
-|           |    DIA|   EEM|   EFA|   EWH|   EWJ|  EWT|   EWZ|   FXI|    GLD|   GSG|    IEF|   ILF|    IWM|   IYR|    QQQ|    SPY|   VNQ|  XLB|   XLE|   XLF|   XLI|   XLP|   XLU|  XLV|   XLY|   XLK|
-|:----------|------:|-----:|-----:|-----:|-----:|----:|-----:|-----:|------:|-----:|------:|-----:|------:|-----:|------:|------:|-----:|----:|-----:|-----:|-----:|-----:|-----:|----:|-----:|-----:|
-|2016-05-12 | 177.42| 32.86| 57.56| 19.03| 11.69| 12.5| 29.04| 31.75| 121.16| 15.18| 110.47| 26.04| 110.37| 79.27| 105.89| 206.56| 85.16| 46.4| 65.83| 23.16| 55.75| 53.92| 49.63| 69.3| 79.05| 42.37|
+|           |    DIA|   EEM|   EFA|  EWH|   EWJ|   EWT|  EWZ|   FXI|    GLD|   GSG|    IEF|   ILF|    IWM|   IYR|   QQQ|    SPY|  VNQ|   XLB|   XLE|   XLF|   XLI|   XLP|   XLU|   XLV|   XLY|   XLK|
+|:----------|------:|-----:|-----:|----:|-----:|-----:|----:|-----:|------:|-----:|------:|-----:|------:|-----:|-----:|------:|----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|-----:|
+|2016-05-13 | 175.48| 32.27| 56.97| 18.8| 11.53| 12.36| 27.8| 31.24| 121.71| 15.15| 110.89| 25.15| 109.64| 78.63| 105.5| 204.76| 84.4| 45.95| 64.99| 22.88| 55.05| 53.24| 49.39| 69.14| 78.11| 42.21|
     
 
 
@@ -107,7 +107,7 @@ prices = data$prices * data$universe
 
 
 {% highlight text %}
-## Error in eval(expr, envir, enclos): Date's serial number (1463036769) outside allowed range [367-109574], i.e. [January 1st, 1901-December 31st, 2199]
+## Error in eval(expr, envir, enclos): Date's serial number (1463123169) outside allowed range [367-109574], i.e. [January 1st, 1901-December 31st, 2199]
 {% endhighlight %}
 
 
@@ -232,4 +232,4 @@ For more details please check the
 
 
 
-*(this report was produced on: 2016-05-13)*
+*(this report was produced on: 2016-05-14)*

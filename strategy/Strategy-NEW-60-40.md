@@ -64,9 +64,9 @@ print(last(data$prices))
 
 
 
-|           |  STOCK|   BOND| CASH|
-|:----------|------:|------:|----:|
-|2016-05-12 | 206.56| 131.01|   85|
+|           |  STOCK|   BOND|  CASH|
+|:----------|------:|------:|-----:|
+|2016-05-13 | 204.76| 132.28| 85.01|
     
 
 
@@ -87,7 +87,7 @@ prices = data$prices * data$universe
 
 
 {% highlight text %}
-## Error in eval(expr, envir, enclos): Date's serial number (1463036769) outside allowed range [367-109574], i.e. [January 1st, 1901-December 31st, 2199]
+## Error in eval(expr, envir, enclos): Date's serial number (1463123169) outside allowed range [367-109574], i.e. [January 1st, 1901-December 31st, 2199]
 {% endhighlight %}
 
 
@@ -292,4 +292,4 @@ report can also be downloaded and viewed the pdf format.
 
 
 
-*(this report was produced on: 2016-05-13)*
+*(this report was produced on: 2016-05-14)*
