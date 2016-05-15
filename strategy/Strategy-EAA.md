@@ -88,21 +88,6 @@ prices = data$prices * data$universe
 
 
 
-{% highlight text %}
-## Error in eval(expr, envir, enclos): Date's serial number (1463123169) outside allowed range [367-109574], i.e. [January 1st, 1901-December 31st, 2199]
-{% endhighlight %}
-
-
-
-{% highlight text %}
-## Error in date.ends.index(out, out$signal.timing): object 'out' not found
-{% endhighlight %}
-
-
-
-{% highlight text %}
-## Error in eval(expr, envir, enclos): object 'period.ends' not found
-{% endhighlight %}
 
 
 Code Strategy Rules:
@@ -143,76 +128,147 @@ for(i in period.ends[period.ends > cor.lookback]){
   if(any(include.index))
   	mkt.cor[i,include.index] = cor(hist[,include.index], mkt.ret[index], use='complete.obs',method='pearson')
 }
-{% endhighlight %}
 
-
-
-{% highlight text %}
-## Error in eval(expr, envir, enclos): object 'period.ends' not found
-{% endhighlight %}
-
-
-
-{% highlight r %}
 avg.rank = (mom^weight$r * (1 - mkt.cor)^weight$c / hist.vol^weight$v) ^ weight$s
 meta.rank = br.rank(avg.rank[period.ends,])
-{% endhighlight %}
 
-
-
-{% highlight text %}
-## Error in `[.xts`(avg.rank, period.ends, ): object 'period.ends' not found
-{% endhighlight %}
-
-
-
-{% highlight r %}
 #absolute momentum filter
 weight = (meta.rank <= n.top)/rowSums(meta.rank <= n.top, na.rm=T) * (mom[period.ends,] > 0)
-{% endhighlight %}
 
-
-
-{% highlight text %}
-## Error in eval(expr, envir, enclos): object 'meta.rank' not found
-{% endhighlight %}
-
-
-
-{% highlight r %}
 # otherwise, it's weight is allocated to cash
 weight$CASH = 1 - rowSums(weight,na.rm=T)
-{% endhighlight %}
 
-
-
-{% highlight text %}
-## Error in rowSums(weight, na.rm = T): 'x' must be an array of at least two dimensions
-{% endhighlight %}
-
-
-
-{% highlight r %}
 obj$weights$strategy = weight
 {% endhighlight %}
 
 
+![plot of chunk plot-6](/public/images/Strategy-EAA/plot-6-1.png) 
 
-{% highlight text %}
-## Error in rowSums(weight, na.rm = T): 'x' must be an array of at least two dimensions
-{% endhighlight %}
-
-
-
-{% highlight text %}
-## Error in lst(...): object 'models' not found
-{% endhighlight %}
+#Strategy Performance:
+    
 
 
 
-{% highlight text %}
-## Error in lst(...): object 'models' not found
-{% endhighlight %}
+
+|              |strategy          |
+|:-------------|:-----------------|
+|Period        |May1996 - May2016 |
+|Cagr          |10.93             |
+|Sharpe        |1.03              |
+|DVR           |0.99              |
+|R2            |0.96              |
+|Volatility    |10.68             |
+|MaxDD         |-14.18            |
+|Exposure      |99.72             |
+|Win.Percent   |62.6              |
+|Avg.Trade     |0.35              |
+|Profit.Factor |2.02              |
+|Num.Trades    |655               |
+    
+
+
+![plot of chunk plot-6](/public/images/Strategy-EAA/plot-6-2.png) 
+
+#Monthly Results for strategy :
+    
+
+
+
+
+|     |Jan   |Feb   |Mar   |Apr   |May   |Jun   |Jul   |Aug   |Sep   |Oct   |Nov   |Dec   |Year  |MaxDD |
+|:----|:-----|:-----|:-----|:-----|:-----|:-----|:-----|:-----|:-----|:-----|:-----|:-----|:-----|:-----|
+|1996 |      |      |      |      |      |  1.3 |  0.2 | -0.2 |  1.7 |  2.2 |  1.7 | -0.9 |  6.2 | -1.8 |
+|1997 |  0.2 |  0.1 | -1.0 |  1.5 |  0.9 |  1.0 |  4.5 | -3.5 |  7.3 | -3.9 | -1.0 |  1.6 |  7.4 | -8.1 |
+|1998 |  0.1 |  2.2 |  3.3 |  1.5 | -0.6 |  1.2 | -0.6 | -4.0 |  2.5 | -0.6 |  0.2 |  2.4 |  7.6 | -6.1 |
+|1999 |  1.7 | -2.9 |  1.6 |  6.7 | -3.3 |  3.6 | -1.8 |  1.4 |  1.9 |  1.5 |  7.0 | 10.5 | 30.6 | -5.8 |
+|2000 | -2.1 |  4.8 | -0.2 | -5.0 |  2.6 |  3.5 |  1.0 |  2.4 | -0.9 | -1.5 |  3.0 |  0.9 |  8.3 |-11.2 |
+|2001 |  0.7 | -0.4 | -1.4 | -0.8 |  1.0 |  2.2 |  0.9 |  1.9 | -0.3 |  1.8 | -1.7 |  0.1 |  4.1 | -4.2 |
+|2002 |  1.1 |  1.3 |  0.7 |  0.2 |  0.1 | -1.3 | -0.9 |  2.9 |  2.8 | -0.9 | -0.5 |  4.1 | 10.0 | -7.0 |
+|2003 |  2.5 |  3.0 | -2.8 | -0.4 |  4.6 |  0.5 |  0.6 |  4.3 |  0.4 |  5.3 |  1.1 |  6.8 | 28.7 | -5.4 |
+|2004 |  3.1 |  4.3 |  2.5 | -8.4 |  1.9 | -0.4 |  0.2 |  2.7 |  2.0 |  3.2 |  4.7 |  1.4 | 18.0 |-12.6 |
+|2005 | -3.5 |  6.6 | -2.0 | -3.1 |  1.7 |  3.0 |  6.3 |  1.0 |  3.8 | -4.7 |  3.1 |  3.7 | 16.3 | -7.8 |
+|2006 |  8.9 | -3.6 |  3.6 |  2.4 | -4.8 |  1.1 |  2.8 |  0.5 | -0.8 |  3.3 |  3.4 |  2.0 | 19.7 |-11.9 |
+|2007 |  3.2 | -2.3 | -0.6 |  1.4 |  0.8 | -1.6 | -1.4 |  0.7 |  4.0 |  8.9 | -1.4 |  1.7 | 13.8 |-12.2 |
+|2008 |  2.5 |  4.1 |  0.2 |  1.0 |  2.7 |  0.7 | -3.0 | -1.4 | -3.7 | -2.3 |  3.9 |  5.1 |  9.9 |-13.8 |
+|2009 | -2.7 | -0.7 |  1.1 | -0.6 | -0.3 | -1.3 |  4.5 |  0.8 |  7.4 | -2.6 |  5.7 |  2.0 | 13.5 | -7.7 |
+|2010 | -7.1 |  2.8 |  8.2 |  1.7 | -7.6 | -0.3 |  3.7 | -0.4 |  5.3 |  3.0 | -1.1 |  3.6 | 11.3 |-14.2 |
+|2011 |  2.9 |  4.2 |  0.5 |  4.4 | -1.7 | -2.7 |  3.1 | -0.5 | -4.0 | -0.4 | -1.3 |  1.4 |  5.6 |-11.2 |
+|2012 |  2.6 |  0.6 |  0.6 |  1.5 | -2.7 | -0.1 |  1.5 |  0.0 |  0.1 | -1.1 |  0.5 |  1.3 |  4.7 | -5.0 |
+|2013 |  1.9 |  0.3 |  2.4 |  3.2 | -3.7 | -2.4 |  2.1 | -3.7 |  2.0 |  2.8 |  0.9 |  1.2 |  6.9 | -9.4 |
+|2014 | -2.5 |  1.9 |  0.5 |  1.5 |  1.0 |  1.8 | -1.2 |  3.3 | -5.4 |  1.6 |  1.3 |  0.6 |  4.2 | -6.7 |
+|2015 |  4.5 | -2.5 |  0.3 | -2.3 | -1.2 | -1.5 |  1.1 | -2.2 |  0.6 |  0.0 | -0.5 |  0.5 | -3.4 | -9.6 |
+|2016 | -0.4 |  0.8 |  0.4 | -0.8 |  1.0 |      |      |      |      |      |      |      |  1.0 | -2.4 |
+|Avg  |  0.9 |  1.2 |  0.9 |  0.3 | -0.4 |  0.4 |  1.2 |  0.3 |  1.3 |  0.8 |  1.4 |  2.5 | 10.7 | -8.3 |
+    
+
+
+![plot of chunk plot-6](/public/images/Strategy-EAA/plot-6-3.png) ![plot of chunk plot-6](/public/images/Strategy-EAA/plot-6-4.png) 
+
+#Trades for strategy :
+    
+
+
+
+
+|strategy         |weight |entry.date |exit.date  |nhold |entry.price |exit.price |return |
+|:----------------|:------|:----------|:----------|:-----|:-----------|:----------|:------|
+|CASH             |66.7   |2015-06-30 |2015-07-31 |31    |79.88       |80.58      |0.59   |
+|US.STOCKS        |33.3   |2015-07-31 |2015-08-31 |31    |107.17      |100.65     |-2.03  |
+|CASH             |66.7   |2015-07-31 |2015-08-31 |31    |80.58       |80.38      |-0.16  |
+|CASH             |100    |2015-08-31 |2015-09-30 |30    |80.38       |80.87      |0.6    |
+|CASH             |100    |2015-09-30 |2015-10-30 |30    |80.87       |80.89      |0.03   |
+|REAL.ESTATE      |33.3   |2015-10-30 |2015-11-30 |31    |78.79       |78.3       |-0.21  |
+|CASH             |66.7   |2015-10-30 |2015-11-30 |31    |80.89       |80.57      |-0.26  |
+|REAL.ESTATE      |33.3   |2015-11-30 |2015-12-31 |31    |78.3        |79.73      |0.61   |
+|CASH             |66.7   |2015-11-30 |2015-12-31 |31    |80.57       |80.43      |-0.12  |
+|REAL.ESTATE      |33.3   |2015-12-31 |2016-01-29 |29    |79.73       |76.99      |-1.15  |
+|CASH             |66.7   |2015-12-31 |2016-01-29 |29    |80.43       |81.39      |0.8    |
+|CASH             |100    |2016-01-29 |2016-02-29 |31    |81.39       |82.09      |0.85   |
+|US.10YR.GOV.BOND |33.3   |2016-02-29 |2016-03-31 |31    |110.08      |110.01     |-0.02  |
+|CASH             |66.7   |2016-02-29 |2016-03-31 |31    |82.09       |82.65      |0.45   |
+|US.10YR.GOV.BOND |33.3   |2016-03-31 |2016-04-29 |29    |110.01      |109.84     |-0.05  |
+|REAL.ESTATE      |33.3   |2016-03-31 |2016-04-29 |29    |83.8        |81.83      |-0.78  |
+|CASH             |33.3   |2016-03-31 |2016-04-29 |29    |82.65       |82.81      |0.06   |
+|US.STOCKS        |33.3   |2016-04-29 |2016-05-13 |14    |105.51      |104.42     |-0.34  |
+|US.10YR.GOV.BOND |33.3   |2016-04-29 |2016-05-13 |14    |109.84      |110.89     |0.32   |
+|REAL.ESTATE      |33.3   |2016-04-29 |2016-05-13 |14    |81.83       |84.4       |1.05   |
+    
+
+
+
+
+#Signals for strategy :
+    
+
+
+
+
+|           | US.STOCKS| FOREIGN.STOCKS| EMERGING.MARKETS| US.10YR.GOV.BOND| REAL.ESTATE| COMMODITIES| CASH|
+|:----------|---------:|--------------:|----------------:|----------------:|-----------:|-----------:|----:|
+|2014-09-29 |        33|              0|                0|               33|           0|           0|   33|
+|2014-10-30 |         0|              0|                0|               33|          33|           0|   33|
+|2014-11-26 |        33|              0|                0|                0|          33|           0|   33|
+|2014-12-30 |         0|              0|                0|               33|          33|           0|   33|
+|2015-01-29 |         0|              0|                0|               33|          33|           0|   33|
+|2015-02-26 |        33|              0|                0|                0|          33|           0|   33|
+|2015-03-30 |         0|              0|                0|               33|          33|           0|   33|
+|2015-04-29 |        33|              0|               33|                0|           0|           0|   33|
+|2015-05-28 |        33|              0|                0|               33|           0|           0|   33|
+|2015-06-29 |        33|              0|                0|                0|           0|           0|   67|
+|2015-07-30 |        33|              0|                0|                0|           0|           0|   67|
+|2015-08-28 |         0|              0|                0|                0|           0|           0|  100|
+|2015-09-29 |         0|              0|                0|                0|           0|           0|  100|
+|2015-10-29 |         0|              0|                0|                0|          33|           0|   67|
+|2015-11-27 |         0|              0|                0|                0|          33|           0|   67|
+|2015-12-30 |         0|              0|                0|                0|          33|           0|   67|
+|2016-01-28 |         0|              0|                0|                0|           0|           0|  100|
+|2016-02-26 |         0|              0|                0|               33|           0|           0|   67|
+|2016-03-30 |         0|              0|                0|               33|          33|           0|   33|
+|2016-04-28 |        33|              0|                0|               33|          33|           0|    0|
+    
+
+
+
 
 
 
@@ -223,4 +279,4 @@ report can also be downloaded and viewed the pdf format.
 
 
 
-*(this report was produced on: 2016-05-14)*
+*(this report was produced on: 2016-05-15)*
