@@ -4,8 +4,9 @@ title: Strategy
 permalink: strategy/
 ---
 
-Following are automated Strategy back-test and signal reports,
-based on strategies discussed in blogs and at SSRN, that are automatically updated each night.
+Following reports are no longer updated.
+<strike>Following are automated Strategy back-test and signal reports,
+based on strategies discussed in blogs and at SSRN, that are automatically updated each night.</strike>
 
 Please note that there in NO guarantee that these strategies will updated every night. I.e. if there
 is a power outage or internet service interruption, the strategies pages will updated once power and 
