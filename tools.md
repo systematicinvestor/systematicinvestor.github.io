@@ -4,7 +4,8 @@ title: Tools
 permalink: tools/
 ---
 
-Following are automated researcg reports that are created each night:
+Following reports are no longer updated:
+<strike>Following are automated research reports that are created each night:</strike>
 
 <ul>
 {% for post in site.pages %}
